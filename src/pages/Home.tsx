@@ -7,11 +7,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useToast } from "@/hooks/use-toast";
 import useProducts from "@/hooks/useProducts";
 import { Product } from "@/interface/interface";
 
 function Home() {
   const products = useProducts();
+  const { toast } = useToast();
 
   const addToCart = (product: Product) => {
     const cart = JSON.parse(localStorage.getItem("cart") || "[]");
@@ -41,7 +43,16 @@ function Home() {
             </CardContent>
           </div>
           <CardFooter className="flex justify-center mt-auto">
-            <Button onClick={() => addToCart(product)}>Add to Cart</Button>
+            <Button
+              onClick={() => {
+                addToCart(product);
+                toast({
+                  description: "1 product added to your cart",
+                });
+              }}
+            >
+              Add to Cart
+            </Button>
           </CardFooter>
         </Card>
       ))}
