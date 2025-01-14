@@ -19,7 +19,7 @@ function Home() {
   };
 
   return (
-    <div className="grid grid-cols-4 gap-4 p-4">
+    <div className="grid lg:grid-cols-4 gap-4 p-4">
       {products.map((product) => (
         <Card
           key={product.id}

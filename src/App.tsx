@@ -10,6 +10,7 @@ function App() {
   return (
     <>
       <Header />
+
       <Routes>
         <Route index element={<Home />} />
         <Route path="cart" element={<Cart />} />
