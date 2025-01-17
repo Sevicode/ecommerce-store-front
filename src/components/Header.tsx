@@ -15,8 +15,6 @@ function Header() {
         <Link to="/">My Store</Link>
       </div>
 
-      <div className="flex-1"></div>
-
       <Link to="/cart" className="relative flex items-center">
         <span role="img" aria-label="cart" className="text-2xl">
           🛒
