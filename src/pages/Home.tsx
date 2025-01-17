@@ -1,72 +1,94 @@
-import { Button } from "@/components/ui/button";
+import React, { useState } from "react";
+import { useLoaderData } from "react-router";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useToast } from "@/hooks/use-toast";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Product } from "@/interface/interface";
 
-import { Link, useLoaderData } from "react-router";
-
 function Home() {
-  const { toast } = useToast();
-  const addToCart = (product: Product) => {
-    const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-    localStorage.setItem("cart", JSON.stringify([...cart, product]));
-  };
   const products = useLoaderData() as Product[];
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
+  // Extract unique categories from the products
+  const categories = Array.from(
+    new Set(products.map((product) => product.category))
+  );
+
+  // Filter products based on the selected category
+  const filteredProducts = selectedCategory
+    ? products.filter((product) => product.category === selectedCategory)
+    : products;
+
   return (
-    <>
-      <div className="p-6">
-        <h1 className="text-3xl font-bold mb-6">Products</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {products.map((product) => (
-            <Card
-              key={product.id}
-              className="hover:shadow-lg transition-shadow"
-            >
-              <div>
-                <CardHeader>
-                  <CardTitle className="text-lg font-bold">
-                    {product.title}
-                  </CardTitle>
-                  <CardDescription>${product.price}</CardDescription>
-                </CardHeader>
-                <CardContent className="flex justify-center">
-                  <img
-                    src={product.image}
-                    alt={product.title}
-                    className="h-40 object-contain"
-                  />
-                </CardContent>
-              </div>
-              <CardFooter>
-                <Button
-                  onClick={() => {
-                    addToCart(product);
-                    toast({
-                      description: "1 product added to your cart",
-                    });
-                  }}
-                >
-                  Add to Cart
-                </Button>
-                <Link
-                  to={`/product/${product.id}`}
-                  className="text-blue-600 hover:underline"
-                >
-                  View Details
-                </Link>
-              </CardFooter>
-            </Card>
-          ))}
-        </div>
+    <div className="p-6">
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-3xl font-bold">Products</h1>
+
+        {/* Dropdown for categories */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline">
+              {selectedCategory
+                ? `Category: ${selectedCategory}`
+                : "Select Category"}
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem onClick={() => setSelectedCategory(null)}>
+              All Categories
+            </DropdownMenuItem>
+            {categories.map((category) => (
+              <DropdownMenuItem
+                key={category}
+                onClick={() => setSelectedCategory(category)}
+              >
+                {category}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
-    </>
+
+      {/* Product Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {filteredProducts.map((product) => (
+          <Card key={product.id} className="hover:shadow-lg transition-shadow">
+            <CardHeader>
+              <img
+                src={product.image}
+                alt={product.title || "Product image"}
+                className="w-full h-40 object-cover rounded-t-md"
+              />
+            </CardHeader>
+            <CardContent>
+              <CardTitle className="text-lg font-semibold">
+                {product.title}
+              </CardTitle>
+              <p className="text-gray-600">${product.price.toFixed(2)}</p>
+            </CardContent>
+            <CardFooter>
+              <a
+                href={`/product/${product.id}`}
+                className="text-blue-600 hover:underline"
+              >
+                View Details
+              </a>
+            </CardFooter>
+          </Card>
+        ))}
+      </div>
+    </div>
   );
 }
 
