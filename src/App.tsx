@@ -6,6 +6,7 @@ import Layout from "./components/Layout";
 import ProductPage from "./pages/ProductPage";
 import NotFound from "./pages/NotFound"; // Add a custom NotFound component
 import ErrorBoundary from "./components/ErrorBoundary"; // Add a custom ErrorBoundary component
+import { CartProvider } from "./hooks/CartContext";
 
 const fetchProducts = async () => {
   const response = await fetch("https://fakestoreapi.com/products");
@@ -63,7 +64,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <CartProvider>
+      <RouterProvider router={router} />
+    </CartProvider>
+  );
 }
 
 export default App;

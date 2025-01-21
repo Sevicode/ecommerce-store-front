@@ -16,7 +16,7 @@ const ProductPage: React.FC = () => {
 
   return (
     <div className="p-6">
-      <Card className="max-w-4xl mx-auto shadow-lg">
+      <Card className="max-w-4xl mx-auto shadow-lg border-[#FAB12F]">
         <CardHeader className="p-0">
           <img
             src={product.image}
@@ -34,7 +34,7 @@ const ProductPage: React.FC = () => {
           </p>
         </CardContent>
         <CardFooter className="flex justify-end">
-          <Button className="mt-4">Add to Cart</Button>
+          <Button className="mt-4 bg-[#FA812F] text-white">Add to Cart</Button>
         </CardFooter>
       </Card>
     </div>

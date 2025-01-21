@@ -4,9 +4,9 @@ import Header from "./Header";
 
 const Layout: React.FC = () => {
   return (
-    <div>
+    <div className="min-h-screen">
       <Header />
-      <main style={{ padding: "1rem" }}>
+      <main className="min-h-screen">
         <Outlet />
       </main>
     </div>

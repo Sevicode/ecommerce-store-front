@@ -16,6 +16,14 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 
 const Home: React.FC = () => {
   const products = useLoaderData() as Product[];
@@ -44,41 +52,89 @@ const Home: React.FC = () => {
     new Set(products.map((product) => product.category))
   );
 
-  return (
-    <div className="p-6">
-      <div className="max-w-7xl mx-auto">
-        {/* Landing Section */}
-        <div
-          className="relative bg-cover bg-center h-[350px] rounded-lg shadow-lg overflow-hidden mb-6"
-          style={{ backgroundImage: "url('/path-to-your-image.jpg')" }}
-        >
-          <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center text-white">
-            <h1 className="text-4xl font-bold mb-4">Welcome to Our Store</h1>
-            <p className="text-lg mb-6">
-              Discover the best products tailored just for you!
-            </p>
-          </div>
-        </div>
+  const carouselItems = [
+    {
+      image: "/src/assets/images/landing-img.jpg",
+      title: "Welcome to Our Store",
+      description: "Discover the best products tailored just for you!",
+      alt: "Image by Pexels from Pixabay showing a modern shopping environment",
+    },
+    {
+      image: "/src/assets/images/landing-img2.jpg",
+      title: "New Arrivals",
+      description: "Check out our latest collection",
+      alt: "Image by Orna from Pixabay",
+    },
+    {
+      image: "/src/assets/images/landing-img3.jpg",
+      title: "Special Offers",
+      description: "Get amazing deals on selected items",
+      alt: "Image by Pexels from Pixabay showing a rack of clothes",
+    },
+  ];
 
-        {/* Category Dropdown */}
+  return (
+    <div>
+      <div className="max-w-7xl mx-auto">
+        <Carousel
+          opts={{
+            align: "start",
+            loop: true,
+          }}
+          plugins={[
+            Autoplay({
+              delay: 5000, // 5 seconds
+              stopOnInteraction: true, // stops autoplay when user interacts
+            }),
+          ]}
+          className="mb-6"
+        >
+          <CarouselContent>
+            {carouselItems.map((item, index) => (
+              <CarouselItem key={index}>
+                <div className="relative h-[500px] rounded-lg overflow-hidden">
+                  <img
+                    src={item.image}
+                    alt={item.alt}
+                    className="absolute inset-0 w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-black/50 flex flex-col justify-center items-center text-center text-white">
+                    <h1 className="text-4xl font-bold mb-4">{item.title}</h1>
+                    <p className="text-lg mb-6">{item.description}</p>
+                  </div>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="left-4" />
+          <CarouselNext className="right-4" />
+        </Carousel>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="mb-6">
+            <Button
+              variant="outline"
+              className="mb-6 border-[#FA812F] text-[#FA812F] hover:bg-[#FA812F] hover:text-white"
+            >
               {selectedCategory ? selectedCategory : "Select Category"}
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent>
+          <DropdownMenuContent className="bg-white border-[#FA812F] min-w-[150px] shadow-md z-50">
+            <DropdownMenuItem
+              onClick={() => setSelectedCategory(null)}
+              className="hover:bg-[#FA812F] hover:text-white cursor-pointer"
+            >
+              All Categories
+            </DropdownMenuItem>
             {categories.map((category) => (
               <DropdownMenuItem
                 key={category}
                 onClick={() => setSelectedCategory(category)}
+                className="hover:bg-[#FA812F] hover:text-white cursor-pointer"
               >
                 {category}
               </DropdownMenuItem>
             ))}
-            <DropdownMenuItem onClick={() => setSelectedCategory(null)}>
-              All Categories
-            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
 
@@ -87,7 +143,7 @@ const Home: React.FC = () => {
           {filteredProducts.map((product) => (
             <Card
               key={product.id}
-              className="hover:shadow-lg transition-shadow flex flex-col justify-between h-full"
+              className="hover:shadow-lg transition-shadow flex flex-col justify-between h-full border-[#FA812F]"
             >
               <div>
                 <CardHeader>
@@ -112,7 +168,7 @@ const Home: React.FC = () => {
                 </Link>
                 <Button
                   variant="outline"
-                  className="text-green-600"
+                  className="text-gray-600 border-[#FA812F]"
                   onClick={() => handleAddToCart(product)}
                 >
                   Add to Cart
