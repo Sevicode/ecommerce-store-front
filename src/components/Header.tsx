@@ -1,6 +1,6 @@
 import { useCart } from "@/hooks/CartContext";
 import { Link } from "react-router";
-import { Menu } from "lucide-react";
+import { Heart, Menu, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -22,7 +22,7 @@ function Header() {
   ];
 
   const NavigationLinks = () => (
-    <div className="space-y-4">
+    <div className="space-y-4 ">
       <SheetClose asChild>
         <Link to="/" className="block hover:text-[#FA812F] transition-colors">
           Home
@@ -46,12 +46,12 @@ function Header() {
       <div className="max-w-7xl mx-auto h-full">
         <div className="grid grid-cols-12 items-center h-full px-6">
           {/* Logo */}
-          <div className="col-span-2 text-xl font-bold">
+          <div className="col-span-2 text-3xl text-[#FA4032] font-bold">
             <Link to="/">My Store</Link>
           </div>
 
           {/* Desktop/Tablet Navigation - Centered */}
-          <div className="hidden sm:flex col-span-8 items-center justify-center">
+          <div className="hidden sm:flex col-span-8 items-center justify-center font-bold">
             <div className="flex items-center space-x-6">
               <Link to="/" className="hover:text-[#FA812F] transition-colors">
                 Home
@@ -92,6 +92,20 @@ function Header() {
                 </SheetContent>
               </Sheet>
             </div>
+            <Link
+              to="/wishlist"
+              className="hidden sm:flex items-center hover:text-[#FA812F] transition-colors"
+            >
+              <Heart className="h-6 w-6" />
+              <span className="sr-only">Wishlist</span>
+            </Link>
+            <Link
+              to="/account"
+              className="hidden sm:flex items-center hover:text-[#FA812F] transition-colors"
+            >
+              <User className="h-6 w-6" />
+              <span className="sr-only">Account</span>
+            </Link>
 
             <Link to="/cart" className="relative flex items-center">
               <span role="img" aria-label="cart" className="text-2xl">
