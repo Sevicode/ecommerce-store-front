@@ -74,7 +74,7 @@ const Home: React.FC = () => {
   ];
 
   return (
-    <div>
+    <div className="px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <Carousel
           opts={{
@@ -110,7 +110,7 @@ const Home: React.FC = () => {
           <CarouselPrevious className="left-4" />
           <CarouselNext className="right-4" />
         </Carousel>
-        <div className="flex justify-end mb-6">
+        <div className="flex justify-end m-6">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
@@ -140,11 +140,11 @@ const Home: React.FC = () => {
           </DropdownMenu>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filteredProducts.map((product) => (
             <Card
               key={product.id}
-              className="hover:shadow-lg transition-shadow flex flex-col justify-between h-full border-[#FA812F]"
+              className="hover:shadow-lg transition-shadow flex flex-col justify-between h-full "
             >
               <div>
                 <CardHeader>
