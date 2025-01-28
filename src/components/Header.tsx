@@ -1,6 +1,6 @@
 import { useCart } from "@/hooks/CartContext";
 import { Link } from "react-router";
-import { Heart, Menu, User } from "lucide-react";
+import { Menu, Heart, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -22,7 +22,7 @@ function Header() {
   ];
 
   const NavigationLinks = () => (
-    <div className="space-y-4 ">
+    <div className="space-y-4">
       <SheetClose asChild>
         <Link to="/" className="block hover:text-[#FA812F] transition-colors">
           Home
@@ -44,54 +44,31 @@ function Header() {
   return (
     <div className="bg-white shadow-sm h-20">
       <div className="max-w-7xl mx-auto h-full">
-        <div className="grid grid-cols-12 items-center h-full px-6">
+        <div className="flex items-center justify-between h-full px-6">
           {/* Logo */}
-          <div className="col-span-2 text-3xl text-[#FA4032] font-bold">
+          <div className="text-xl font-bold">
             <Link to="/">My Store</Link>
           </div>
 
-          {/* Desktop/Tablet Navigation - Centered */}
-          <div className="hidden sm:flex col-span-8 items-center justify-center font-bold">
-            <div className="flex items-center space-x-6">
-              <Link to="/" className="hover:text-[#FA812F] transition-colors">
-                Home
+          {/* Desktop Navigation */}
+          <div className="hidden sm:flex items-center space-x-6 flex-1 justify-center">
+            <Link to="/" className="hover:text-[#FA812F] transition-colors">
+              Home
+            </Link>
+            {categories.map((category) => (
+              <Link
+                key={category}
+                to={`/?category=${category}`}
+                className="hover:text-[#FA812F] transition-colors capitalize"
+              >
+                {category}
               </Link>
-              {categories.map((category) => (
-                <Link
-                  key={category}
-                  to={`/?category=${category}`}
-                  className="hover:text-[#FA812F] transition-colors capitalize"
-                >
-                  {category}
-                </Link>
-              ))}
-            </div>
+            ))}
           </div>
 
-          {/* Cart Icon */}
-          <div className="col-span-2 flex justify-end">
-            {/* Mobile Menu Button */}
-            <div className="sm:hidden flex items-center mr-4">
-              <Sheet>
-                <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon">
-                    <Menu className="h-6 w-6" />
-                    <span className="sr-only">Toggle menu</span>
-                  </Button>
-                </SheetTrigger>
-                <SheetContent>
-                  <SheetHeader>
-                    <SheetTitle>Menu</SheetTitle>
-                    <SheetDescription>
-                      Browse our categories and more
-                    </SheetDescription>
-                  </SheetHeader>
-                  <div className="py-4">
-                    <NavigationLinks />
-                  </div>
-                </SheetContent>
-              </Sheet>
-            </div>
+          {/* Icons Section */}
+          <div className="flex items-center space-x-4">
+            {/* Wishlist Icon - Hidden on mobile */}
             <Link
               to="/wishlist"
               className="hidden sm:flex items-center hover:text-[#FA812F] transition-colors"
@@ -99,6 +76,8 @@ function Header() {
               <Heart className="h-6 w-6" />
               <span className="sr-only">Wishlist</span>
             </Link>
+
+            {/* User Account Icon - Hidden on mobile */}
             <Link
               to="/account"
               className="hidden sm:flex items-center hover:text-[#FA812F] transition-colors"
@@ -107,6 +86,7 @@ function Header() {
               <span className="sr-only">Account</span>
             </Link>
 
+            {/* Cart Icon */}
             <Link to="/cart" className="relative flex items-center">
               <span role="img" aria-label="cart" className="text-2xl">
                 🛒
@@ -117,6 +97,29 @@ function Header() {
                 </span>
               )}
             </Link>
+
+            {/* Mobile Menu Button - Moved to the end */}
+            <div className="sm:hidden">
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <Menu className="h-6 w-6" />
+                    <span className="sr-only">Toggle menu</span>
+                  </Button>
+                </SheetTrigger>
+                <SheetContent className="bg-white">
+                  <SheetHeader>
+                    <SheetTitle className="text-[#FA812F]">Menu</SheetTitle>
+                    <SheetDescription>
+                      Browse our categories and more
+                    </SheetDescription>
+                  </SheetHeader>
+                  <div className="py-4">
+                    <NavigationLinks />
+                  </div>
+                </SheetContent>
+              </Sheet>
+            </div>
           </div>
         </div>
       </div>

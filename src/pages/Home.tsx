@@ -55,7 +55,7 @@ const Home: React.FC = () => {
   const carouselItems = [
     {
       image: "/src/assets/images/landing-img.jpg",
-      title: "Welcome to Our Store",
+      title: "Welcome to My Store",
       description: "Discover the best products tailored just for you!",
       alt: "Image by Pexels from Pixabay showing a modern shopping environment",
     },
@@ -110,35 +110,36 @@ const Home: React.FC = () => {
           <CarouselPrevious className="left-4" />
           <CarouselNext className="right-4" />
         </Carousel>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="outline"
-              className="mb-6 border-[#FA812F] text-[#FA812F] hover:bg-[#FA812F] hover:text-white"
-            >
-              {selectedCategory ? selectedCategory : "Select Category"}
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="bg-white border-[#FA812F] min-w-[150px] shadow-md z-50">
-            <DropdownMenuItem
-              onClick={() => setSelectedCategory(null)}
-              className="hover:bg-[#FA812F] hover:text-white cursor-pointer"
-            >
-              All Categories
-            </DropdownMenuItem>
-            {categories.map((category) => (
+        <div className="flex justify-end mb-6">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="outline"
+                className="mb-6 border-[#FA812F] text-[#FA812F] hover:bg-[#FA812F] hover:text-white"
+              >
+                {selectedCategory ? selectedCategory : "Select Category"}
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="bg-white border-[#FA812F] min-w-[150px] shadow-md z-50">
               <DropdownMenuItem
-                key={category}
-                onClick={() => setSelectedCategory(category)}
+                onClick={() => setSelectedCategory(null)}
                 className="hover:bg-[#FA812F] hover:text-white cursor-pointer"
               >
-                {category}
+                All Categories
               </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
+              {categories.map((category) => (
+                <DropdownMenuItem
+                  key={category}
+                  onClick={() => setSelectedCategory(category)}
+                  className="hover:bg-[#FA812F] hover:text-white cursor-pointer"
+                >
+                  {category}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
 
-        {/* Product Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {filteredProducts.map((product) => (
             <Card

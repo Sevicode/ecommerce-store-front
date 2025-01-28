@@ -9,13 +9,13 @@ function Footer() {
   ];
 
   return (
-    <footer className="bg-white border-t">
+    <footer className="bg-[#FA812F] border-t">
       <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Store Info */}
           <div>
-            <h3 className="text-lg font-bold mb-4">My Store</h3>
-            <p className="text-gray-600 mb-4">
+            <h3 className="text-3xl text-white font-bold mb-4">My Store</h3>
+            <p className="text-white mb-4">
               Your one-stop shop for all your shopping needs. We offer quality
               products at competitive prices.
             </p>
@@ -32,7 +32,7 @@ function Footer() {
                 <li key={category}>
                   <Link
                     to={`/?category=${category}`}
-                    className="text-gray-600 hover:text-[#FA812F] transition-colors capitalize"
+                    className="text-white hover:text-gray-600 transition-colors capitalize"
                   >
                     {category}
                   </Link>
@@ -44,7 +44,7 @@ function Footer() {
           {/* Contact Info */}
           <div>
             <h3 className="text-lg font-bold mb-4">Contact Us</h3>
-            <ul className="space-y-2 text-gray-600">
+            <ul className="space-y-2 text-white">
               <li>Email: info@mystore.com</li>
               <li>Phone: (123) 456-7890</li>
               <li>Address: 123 Shopping Street</li>
@@ -53,19 +53,19 @@ function Footer() {
             <div className="mt-4 flex space-x-4">
               <a
                 href="#"
-                className="text-gray-600 hover:text-[#FA812F] transition-colors"
+                className="text-gray-800 hover:text-[#FEF3E2] transition-colors"
               >
                 Facebook
               </a>
               <a
                 href="#"
-                className="text-gray-600 hover:text-[#FA812F] transition-colors"
+                className="text-gray-800 hover:text-[#FEF3E2] transition-colors"
               >
                 Twitter
               </a>
               <a
                 href="#"
-                className="text-gray-600 hover:text-[#FA812F] transition-colors"
+                className="text-gray-800 hover:text-[#FEF3E2] transition-colors"
               >
                 Instagram
               </a>
